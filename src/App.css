@@ -4,8 +4,7 @@
   margin: 11px auto 0 auto;
 }
 
-
-.content{
+.content {
   display: flex;
   /* justify-content: space-between; */
   /* gap: 18rem; */
@@ -13,6 +12,30 @@
   margin: 10px 0 0 0;
 }
 
+form {
+  width: 100%;
+  display: flex;
+  /* gap: 5rem; */
+  /* justify-content: space-between; */
+}
+
+input {
+  width: 95%;
+  border-radius: 5px;
+  border: 0;
+  border: 2px solid #afafaf;
+}
+
+.search-btn {
+  padding: 1.2rem 1.5rem;
+  border-radius: 35px;
+  margin: 0 0 0 50px;
+  background: #3f3f41;
+  color: #e0e0e2;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
 
 .App-logo {
   height: 40vmin;

@@ -1,81 +1,80 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.wind-forecast{
-    position: relative;
-    display: flex;
-    text-align: start;
-    padding: 0 0 0 20px;
-    line-height: 2rem;
-    gap: 2rem;
-    /* border-left: 1px solid orangered; */
+.wind-forecast {
+  position: relative;
+  display: flex;
+  text-align: start;
+  padding: 0 0 0 20px;
+  line-height: 2rem;
+  gap: 2rem;
+  /* border-left: 1px solid orangered; */
 }
 
-.wind-forecast::before{
-    content: '';
-    position: absolute;
-    width: 1px;
-    height: 85%;
-    background: #F1513A;
-    left: 0;
-    bottom: 0;
-    top: 0;
-    margin: auto 0;
+.wind-forecast::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 85%;
+  background: #f1513a;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto 0;
 }
 
-.wind-forecast-left p, .wind-forecast-right p{
-    margin: 0;
+.wind-forecast-left p,
+.wind-forecast-right p {
+  margin: 0;
 }
 
-.current-forecast{
-    text-align: start;
-    width: 50%;
-    margin: 5px 0 0 0;
+.current-forecast {
+  text-align: start;
+  width: 50%;
+  margin: 5px 0 0 0;
 }
 
-
-.wind{
-    margin:  20px 0 0 0;
+.wind {
+  margin: 20px 0 0 0;
 }
 
-.wind-temp{
-    font-weight: 600;
-    letter-spacing: 0.1rem;
+.wind-temp {
+  font-weight: 600;
+  letter-spacing: 0.1rem;
 }
 
-.forecast-btn{
-    padding: 0.7rem 1rem;
-    margin: 20px 0 0 0;
-    border-radius: 5px;
-    background: #F1513A;
-    color: #4C1104;
-    border: none;
-    font-size: 1.3rem;
-    font-weight: 700;
-    cursor: pointer;
+.forecast-btn {
+  padding: 0.7rem 1rem;
+  margin: 20px 0 0 0;
+  border-radius: 5px;
+  background: #f1513a;
+  color: #4c1104;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.current-date{
-    color: orange;
+.current-date {
+  color: orange;
 }
 
-.current-temp{
-    display: flex;
-    align-items: center;
-    margin: 50px 0 0 0;
-    gap: 0.5rem;
-    font-size: 2.5rem;
+.current-temp {
+  display: flex;
+  align-items: center;
+  margin: 50px 0 0 0;
+  gap: 0.5rem;
+  font-size: 2.5rem;
 }
 
-.current-temp img{
-    width: 3rem;
-    height: 3rem;
+.current-temp img {
+  width: 3rem;
+  height: 3rem;
 }
 
-
-.current-desc{
-    font-size: 1.3rem;
-    font-weight: 600;
+.current-desc {
+  font-size: 1.3rem;
+  font-weight: 600;
 }
