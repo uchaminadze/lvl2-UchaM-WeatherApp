@@ -1,5 +1,5 @@
 import React from "react";
-import "./modal.css";
+import "./share.scss";
 
 const Modal = (props) => {
   if (!props.open) return null;

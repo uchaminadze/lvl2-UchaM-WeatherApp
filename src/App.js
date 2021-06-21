@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./App.scss";
 import FetchWeather from "./current-day/currentDay";
 import EightDay from "./eight-day/eightDay";
 
@@ -17,6 +17,7 @@ function App() {
   };
   return (
     <div className="App">
+      {/* <Loader isLoading={loading}> */}
       <form>
         <input onChange={(e) => handleChange(e)} />
         <button className="search-btn" onClick={(e) => handleSubmit(e)}>
@@ -27,6 +28,7 @@ function App() {
         <FetchWeather city={city} />
         <EightDay city={city} />
       </div>
+      {/* </Loader> */}
     </div>
   );
 }
