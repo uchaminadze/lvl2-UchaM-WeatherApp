@@ -5,17 +5,20 @@ import Loader from "../share components/loader";
 const EightDay = ({ city }) => {
   const [weather, setWeather] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState();
+  const apiKey = "533da8f7488d45a384e8a432578ccb32";
 
   useEffect(() => {
     setLoading(true);
-    const apiKey = "44afaae1b5894a5f8596c85c2d9bcea8";
-    const apiUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${apiKey}`;
-
+    const apiUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${apiKey}&days=8`;
     fetch(apiUrl)
-      .then((res) => res.json())
+      .then((res) => res.json(setResponse(res.ok)))
       .then(({ data }) => {
         console.log(data);
-        setWeather(serialData(data.splice(0, 8)));
+        setWeather(serialData(data));
+      })
+      .catch((error) => {
+        console.error(error);
       })
       .finally(() => {
         setLoading(false);
@@ -39,29 +42,38 @@ const EightDay = ({ city }) => {
     <div className="eight-forecast">
       <Loader isLoading={loading}>
         <h2>8-day forecast</h2>
-        {weather.map((el, index) => {
-          return (
-            <ul className="daily-list">
-              <div>
-                <li key={index}>{el.time}</li>
-              </div>
 
-              <div>
-                <li className="forecast-list" key={index}>
-                  <img
-                    key={index}
-                    src={`https://www.weatherbit.io/static/img/icons/${el.icon}.png`}
-                    alt={el.code}
-                  />
-                  {el.min} / {el.max} &#8451;
-                </li>
-              </div>
-              <div>
-                <li key={index}>{el.desc}</li>
-              </div>
-            </ul>
-          );
-        })}
+        {response ? (
+          <>
+            {weather.map((el, index) => {
+              return (
+                <ul className="daily-list">
+                  <div>
+                    <li key={index}>{el.time}</li>
+                  </div>
+
+                  <div>
+                    <li className="forecast-list" key={index}>
+                      <img
+                        key={index}
+                        src={`https://www.weatherbit.io/static/img/icons/${el.icon}.png`}
+                        alt={el.code}
+                      />
+                      {el.min} / {el.max} &#8451;
+                    </li>
+                  </div>
+                  <div>
+                    <li key={index}>{el.desc}</li>
+                  </div>
+                </ul>
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <p>sorry, some kind of problem has occured</p>
+          </>
+        )}
       </Loader>
     </div>
   );

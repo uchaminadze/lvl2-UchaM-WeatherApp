@@ -6,27 +6,34 @@ const FetchWeather = ({ city }) => {
   const [weather, setWeather] = useState({});
   const [hourData, setHourData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [response, setResponse] = useState();
+  const [currentResponse, setCurrentResponse] = useState();
+  const apiKey = "533da8f7488d45a384e8a432578ccb32";
   useEffect(() => {
-    const apiKey = "44afaae1b5894a5f8596c85c2d9bcea8";
     const apiUrl = `https://api.weatherbit.io/v2.0/current?&city=${city}&units=metric&key=${apiKey}`;
     fetch(apiUrl)
-      .then((res) => res.json())
+      .then((res) => res.json(setCurrentResponse(res.ok)))
       .then(({ data }) => {
         setWeather(serialData(data));
-        // console.log(weather);
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }, [city]);
 
   useEffect(() => {
-    const apiKey = "44afaae1b5894a5f8596c85c2d9bcea8";
-    const apiUrl = `https://api.weatherbit.io/v2.0/forecast/hourly?city=${city}&key=${apiKey}&hours=10`;
+    const apiUrl = `https://api.weatherbit.io/v2.0/forecast/hourly?city=${city}&key=${apiKey}`;
     fetch(apiUrl)
-      .then((res) => res.json())
-      .then(({ data }) => {
+      .then((res) => res.json(setResponse(res.ok)))
+      .then(({data}) => {
         setHourData(serialData(data));
-        // console.log(weather);
-      });
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      
   }, [city]);
 
   const serialData = (data) => {
@@ -52,46 +59,56 @@ const FetchWeather = ({ city }) => {
 
   return (
     <div className="current-forecast">
-      {weather[0] ? (
-        <div>
-          <h3 className="current-date">{weather[0].time}</h3>
-          <h2>
-            {weather[0].name}, {weather[0].country}
-          </h2>
-          <h2 className="current-temp">
-            <img
-              src={`https://www.weatherbit.io/static/img/icons/${weather[0].icon}.png`}
-              alt={weather[0].code}
-            />
-            {weather[0].temp}&#8451;
-          </h2>
-          <div className="wind">
-            <p className="current-desc">
-              Feels like {weather[0].app_temp} &#8451;, {weather[0].desc}
-            </p>
-            <div className="wind-forecast">
-              <div className="wind-forecast-left">
-                <p>{weather[0].wind} m/s</p>
-                <p>Humidity: {weather[0].rh}%</p>
-                <p>Dew point: {weather[0].dewpt} &#8451;</p>
-              </div>
-              <div className="wind-forecast-right">
-                <p>{weather[0].aqi}</p>
-                <p>UV: {weather[0].uv}</p>
-                <p>Visibility: {weather[0].visibility} km</p>
+      {currentResponse ? (
+        <>
+          {weather[0] && (
+            <div>
+              <h3 className="current-date">{weather[0].time}</h3>
+              <h2>
+                {weather[0].name}, {weather[0].country}
+              </h2>
+              <h2 className="current-temp">
+                <img
+                  src={`https://www.weatherbit.io/static/img/icons/${weather[0].icon}.png`}
+                  alt={weather[0].code}
+                />
+                {weather[0].temp}&#8451;
+              </h2>
+              <div className="wind">
+                <p className="current-desc">
+                  Feels like {weather[0].app_temp} &#8451;, {weather[0].desc}
+                </p>
+                <div className="wind-forecast">
+                  <div className="wind-forecast-left">
+                    <p>{weather[0].wind} m/s</p>
+                    <p>Humidity: {weather[0].rh}%</p>
+                    <p>Dew point: {weather[0].dewpt} &#8451;</p>
+                  </div>
+                  <div className="wind-forecast-right">
+                    <p>{weather[0].aqi}</p>
+                    <p>UV: {weather[0].uv}</p>
+                    <p>Visibility: {weather[0].visibility} km</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          )}
+        </>
       ) : (
-        <></>
+        <>
+          <p>sorry, some kind of problem has occured</p>
+        </>
       )}
 
       <button className="forecast-btn" onClick={() => setIsOpen(true)}>
         Hourly forecast
       </button>
 
-      {hourData[0] ? (
+
+  {response ? (
+
+    <>
+          {hourData[0] && (
         <Modal
           open={isOpen}
           title={
@@ -102,7 +119,7 @@ const FetchWeather = ({ city }) => {
           }
         >
           <div className="hourly-container">
-            {hourData.map((el, index) => {
+            {hourData.map((el) => {
               return (
                 <div>
                   <div className="hourly-list">
@@ -127,9 +144,27 @@ const FetchWeather = ({ city }) => {
             })}
           </div>
         </Modal>
-      ) : (
-        <></>
       )}
+    </>
+
+      ) : (
+        <>
+          <Modal
+            open={isOpen}
+            title={
+              <div className="modal-title">
+                <button onClick={() => setIsOpen(false)}>X</button>
+              </div>
+            }
+          >
+            <div className="hourly-container">
+              <p>sorry, some kind of problem has occured</p>
+              {console.log(response)}
+            </div>
+          </Modal>
+        </>
+      )}
+
     </div>
   );
 };

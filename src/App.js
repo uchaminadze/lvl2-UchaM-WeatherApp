@@ -19,7 +19,7 @@ function App() {
     <div className="App">
       {/* <Loader isLoading={loading}> */}
       <form>
-        <input onChange={(e) => handleChange(e)} />
+        <input onChange={(e) => handleChange(e)} placeholder="type a city..." />
         <button className="search-btn" onClick={(e) => handleSubmit(e)}>
           Search
         </button>
